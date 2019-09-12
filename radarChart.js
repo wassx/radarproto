@@ -13,7 +13,7 @@ function RadarChart(id, data, options) {
     opacityCircles: 0, 	//The opacity of the circles of each blob
     strokeWidth: 0, 		//The width of the stroke around each blob
     roundStrokes: false,	//If true the area and stroke will follow a round path (cardinal-closed)
-    color: d3.scale.category10()	//Color function
+    color: d3.interpolateGreys //Color function
   };
 
   //Put all of the options into a variable called cfg
@@ -33,7 +33,7 @@ function RadarChart(id, data, options) {
     angleSlice = Math.PI * 2 / total;		//The width in radians of each "slice"
 
   //Scale for the radius
-  var rScale = d3.scale.linear()
+  var rScale = d3.scaleLinear()
     .range([0, radius])
     .domain([0, maxValue]);
 
@@ -131,14 +131,9 @@ function RadarChart(id, data, options) {
   /////////////////////////////////////////////////////////
 
   //The radial line function
-  var radarLine = d3.svg.line.radial()
-    .interpolate("linear-closed")
+  var radarLine = d3.radialLine()
     .radius(function(d) { return rScale(d.value); })
     .angle(function(d,i) {	return i*angleSlice; });
-
-  if(cfg.roundStrokes) {
-    radarLine.interpolate("cardinal-closed");
-  }
 
   //Create a wrapper for the blobs
   var blobWrapper = g.selectAll(".radarWrapper")
@@ -188,7 +183,7 @@ function RadarChart(id, data, options) {
     .attr("cx", function(d,i){ return rScale(d.value) * Math.cos(angleSlice*i - Math.PI/2); })
     .attr("cy", function(d,i){ return rScale(d.value) * Math.sin(angleSlice*i - Math.PI/2); })
     .style("fill", function(d,i,j) { return cfg.color(j); })
-    .style("fill-opacity", 0.8);
+    .style("fill-opacity", 0.1);
 
   /////////////////////////////////////////////////////////
   //////// Append invisible circles for tooltip ///////////
