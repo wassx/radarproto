@@ -92,6 +92,7 @@ function RadarChart(id, data, options) {
     })
     .attr("class", "line")
     .style("stroke", "#c8c8c8")
+    .style("stroke-opacity", 0.2)
     .style("stroke-dasharray", ("3, 3"))
     .style("stroke-width", "1px");
 
