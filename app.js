@@ -21,10 +21,10 @@ function createRandomData(count) {
 
     data.push(
       [
-        {axis: "CPU", value: randn_bm()},
-        {axis: "Mem", value: randn_bm()},
-        {axis: "Availability", value: randn_bm()},
-        {axis: "Disk space", value: randn_bm()},
+        {axis: "CPU", value: randn_bm(), timestamp: i},
+        {axis: "Mem", value: randn_bm(), timestamp: i},
+        {axis: "Availability", value: randn_bm(), timestamp: i},
+        {axis: "Disk space", value: randn_bm(), timestamp: i},
       ]
     );
 
